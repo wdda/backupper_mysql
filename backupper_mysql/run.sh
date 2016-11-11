@@ -36,6 +36,10 @@ DAY=`date +%d`
 HOURS=`date +%H`
 MINUTES=`date +%M`
 
+BASEDIR=`dirname $0`
+PROJECT_PATH=`cd $BASEDIR; pwd`
+cd $PROJECT_PATH
+
 # Check params
 procParmS()
 {
@@ -60,6 +64,9 @@ while [ 1 ] ; do
    shift
 done
 
+BASEDIR=`dirname $0`
+PROJECT_PATH=`cd $BASEDIR; pwd`
+cd "$PROJECT_PATH"
 
 DIR="tmp"
 if [ ! -d "$DIR" ]; then
@@ -138,5 +145,5 @@ done
 
 echo "Delete old backups"
 
-find * -maxdepth 1 -mtime +$DAYS_STORE -type f -delete
+find *.sql.tar.gz -maxdepth 1 -mtime +$DAYS_STORE -type f -delete
 echo "Done!"
