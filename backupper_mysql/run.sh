@@ -64,10 +64,6 @@ while [ 1 ] ; do
    shift
 done
 
-BASEDIR=`dirname $0`
-PROJECT_PATH=`cd $BASEDIR; pwd`
-cd "$PROJECT_PATH"
-
 DIR="tmp"
 if [ ! -d "$DIR" ]; then
     mkdir "$DIR"
