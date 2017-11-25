@@ -18,6 +18,10 @@ Archives retention period
 
     DAYS_STORE=20
 
+Directory for save archive:
+
+    BACKUP_DIR="backups"
+
 A list of excluded databases (database is a part of SHOW DATABASES output)
 
     EXCLUDES_DB=(
@@ -39,3 +43,5 @@ Example select databases:
 Example for cron. Backup all databases:
 
     0 * * * * backupper_mysql/run.sh >/dev/null 2>&1
+    
+

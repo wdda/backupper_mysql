@@ -71,6 +71,7 @@ fi
 
 # Create backup dir
 BACKUP_DIR="backups"
+
 if [ ! -d "$BACKUP_DIR" ]; then
     mkdir "$BACKUP_DIR"
 fi
