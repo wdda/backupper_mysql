@@ -45,3 +45,4 @@ Example for cron. Backup all databases:
     0 * * * * backupper_mysql/run.sh >/dev/null 2>&1
     
 
+![](https://raw.githubusercontent.com/wdda/backupper_mysql/master/example.gif)
