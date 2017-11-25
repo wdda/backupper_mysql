@@ -32,8 +32,10 @@ The structure of the excluded tables will be saved in the backup file.
 
 If you do not want the script to back up the new bases, then upon running, specify that you want to back up, using the "-db" key.
 
-Example select DB:  $ ./run.sh -db "example_db example_db2"
+Example select databases:  
 
-Example for cron. Backup all database:
+    $ ./run.sh -db "example_db example_db2"
+
+Example for cron. Backup all databases:
 
     0 * * * * backupper_mysql/run.sh >/dev/null 2>&1
