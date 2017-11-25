@@ -18,7 +18,8 @@ EXCLUDES_DB=(
     'information_schema'
     'mysql'
     'performance_schema'
-    'phpmyadmin'
+    'phpmyadmin',
+    'sys'
 )
 
 # An array of excluded tables (requires BASH v. 4 >=).
