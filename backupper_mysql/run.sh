@@ -18,7 +18,7 @@ EXCLUDES_DB=(
     'information_schema'
     'mysql'
     'performance_schema'
-    'phpmyadmin',
+    'phpmyadmin'
     'sys'
 )
 
@@ -41,28 +41,26 @@ BASEDIR=`dirname $0`
 PROJECT_PATH=`cd $BASEDIR; pwd`
 cd $PROJECT_PATH
 
-# Check params
-procParmS()
-{
-   [ -z "$2" ] && return 1
-   if [ "$1" = "$2" ] ; then
-      cRes="$3"
-      return 0
-   fi
-   return 1
-}
-
 DATA_BASE_FROM_KEY=0
-while [ 1 ] ; do
-   if procParmS "-db" "$1" "$2" ; then
-      DATA_BASE_FROM_KEY="$cRes" ; shift
-   elif [ -z "$1" ] ; then
-      break
-   else
-      echo "Error: unknown key" 1>&2
-      exit 1
-   fi
-   shift
+EXCLUDES_TABLE_FROM_KEY=0
+
+while getopts ":d:e:h" opt; do
+    case $opt in
+        d)
+            DATA_BASE_FROM_KEY="$OPTARG"
+            ;;
+        e)
+            EXCLUDES_TABLE_FROM_KEY="$OPTARG"
+            ;;
+        h)
+            echo "-d Data Base for backup. Default all."
+            echo "-e --ignore-table. Example -e \"data_base.table data_base2.table2\""
+            exit
+            ;;
+        \?)
+            echo "Invalid option: -$OPTARG" >&2
+            ;;
+    esac
 done
 
 DIR="tmp"
@@ -121,13 +119,21 @@ do
             fi
         done
 
+        if [ "$EXCLUDES_TABLE_FROM_KEY" != 0 ] ; then
+            for ignore_table in $EXCLUDES_TABLE_FROM_KEY
+            do
+                IGNORED_TABLES_STRING+=" --ignore-table="${ignore_table}
+            done
+        fi
+
+
         echo ""
         echo "*---- start backup  $database"
 
         backup_name="$YEAR-$MONTH-$DAY.$HOURS-$MINUTES.$database.backup.sql"
         backup_tarball_name="$backup_name.tar.gz"
 
-        `/usr/bin/mysqldump -h "$DBHOST" --databases --single-transaction --no-data "$database" -u "$DBUSER" ${DBPASS} > "$backup_name"`
+        `/usr/bin/mysqldump -h "$DBHOST" --databases --single-transaction --no-data "$database" -u "$DBUSER" ${DBPASS} ${IGNORED_TABLES_STRING} > "$backup_name"`
         echo "**--- add structure $backup_name"
 
         `/usr/bin/mysqldump -h "$DBHOST" --databases "$database" -u "$DBUSER" ${DBPASS} ${IGNORED_TABLES_STRING} >> "$backup_name"`

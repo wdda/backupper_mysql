@@ -28,17 +28,22 @@ A list of excluded databases (database is a part of SHOW DATABASES output)
      'example_db'
      'example_db2'
     )
+    
+If you do not want the script to back up the new bases, then upon running, specify that you want to back up, using the "-db" key.
+
+Example select databases:  
+
+    $ ./run.sh -d "example_db example_db2"
+    
 
 An array of excluded tables (requires BASH v. 4 >=). 
 The structure of the excluded tables will be saved in the backup file.
 
     EXCLUDED_TABLES[example_db]="example_table example_table2"
+    
+Or ignore table use option:
 
-If you do not want the script to back up the new bases, then upon running, specify that you want to back up, using the "-db" key.
-
-Example select databases:  
-
-    $ ./run.sh -db "example_db example_db2"
+    $ ./run.sh -e "example_db.example_table example_db.example_table2"
 
 Example for cron. Backup all databases:
 
