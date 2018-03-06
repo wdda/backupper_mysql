@@ -42,7 +42,7 @@ If you do not want the script to back up the new bases, then upon running, speci
 
     $ ./run.sh -b "example_db example_db2"
     
-Or as parameter "-e":
+To exclude tables from data base "-e":
 
     $ ./run.sh -e "example_db.example_table example_db.example_table2"
     
