@@ -43,18 +43,26 @@ cd $PROJECT_PATH
 
 DATA_BASE_FROM_KEY=0
 EXCLUDES_TABLE_FROM_KEY=0
+PARAMETERS=""
 
-while getopts ":d:e:h" opt; do
+while getopts ":b:e:p:h" opt; do
     case $opt in
-        d)
+        b)
             DATA_BASE_FROM_KEY="$OPTARG"
             ;;
         e)
             EXCLUDES_TABLE_FROM_KEY="$OPTARG"
             ;;
+        p)
+            PARAMETERS="$OPTARG"
+            ;;
+        t)  DAYS_STORE="$OPTARG"
+            ;;
         h)
-            echo "-d Data Base for backup. Default all."
-            echo "-e --ignore-table. Example -e \"data_base.table data_base2.table2\""
+            echo "-b Data bases for backup. Default all. Example: run.sh -b \"example_db example_db2\""
+            echo "-e For ignore table. Example: run.sh -e \"data_base.table data_base2.table2\""
+            echo "-p Custom parameters. Example: run.sh -p \"--hex-blob\""
+            echo "-t Storage time (days). Example: run.sh -t 3"
             exit
             ;;
         \?)
