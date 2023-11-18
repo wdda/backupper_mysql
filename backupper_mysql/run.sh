@@ -45,7 +45,7 @@ DATA_BASE_FROM_KEY=0
 EXCLUDES_TABLE_FROM_KEY=0
 PARAMETERS=""
 
-while getopts ":b:e:p:h:t" opt; do
+while getopts ":b:e:p:t:h" opt; do
     case $opt in
         b)
             DATA_BASE_FROM_KEY="$OPTARG"
@@ -56,7 +56,8 @@ while getopts ":b:e:p:h:t" opt; do
         p)
             PARAMETERS="$OPTARG"
             ;;
-        t)  DAYS_STORE="$OPTARG"
+        t)  
+            DAYS_STORE="$OPTARG"
             ;;
         h)
             echo "-b Data bases for backup. Default all. Example: run.sh -b \"example_db example_db2\""
@@ -67,6 +68,7 @@ while getopts ":b:e:p:h:t" opt; do
             ;;
         \?)
             echo "Invalid option: -$OPTARG" >&2
+            exit 1
             ;;
     esac
 done
