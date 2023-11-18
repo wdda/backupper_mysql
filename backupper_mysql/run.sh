@@ -45,7 +45,7 @@ DATA_BASE_FROM_KEY=0
 EXCLUDES_TABLE_FROM_KEY=0
 PARAMETERS=""
 
-while getopts ":b:e:p:h" opt; do
+while getopts ":b:e:p:h:t" opt; do
     case $opt in
         b)
             DATA_BASE_FROM_KEY="$OPTARG"
